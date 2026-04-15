@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>🌿 教學原理村 · 今日任務</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== SKY HEADER ===== -->
+<header class="app-header">
+  <div class="header-clouds">
+    <span class="cloud c1">☁️</span>
+    <span class="cloud c2">☁️</span>
+    <span class="cloud c3">☁️</span>
+  </div>
+  <div class="header-content">
+    <div class="header-mascot">🦝</div>
+    <div class="header-text">
+      <h1>教學原理村</h1>
+      <div class="header-sub">張文全老師的考試任務 · Ch1–7</div>
+    </div>
+    <div class="header-bells" id="header-bells-display">🔔 0</div>
+  </div>
+  <div class="header-grass">
+    <svg viewBox="0 0 400 24" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,24 C0,24 0,10 20,14 C40,18 40,6 60,10 C80,14 80,4 100,8 C120,12 120,2 140,6 C160,10 160,0 180,4 C200,8 200,0 220,4 C240,8 240,2 260,6 C280,10 280,4 300,8 C320,12 320,6 340,10 C360,14 360,8 380,12 C400,16 400,24 400,24 Z" fill="#94C97A"/>
+      <path d="M0,24 C0,24 0,16 30,18 C60,20 60,12 90,14 C120,16 120,8 150,12 C180,16 180,10 210,12 C240,14 240,8 270,10 C300,12 300,6 330,10 C360,14 360,10 400,12 L400,24 Z" fill="#7DBF64"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ===== BOTTOM NAVIGATION ===== -->
+<nav class="nav-bar">
+  <div class="nav-tab active" data-page="dashboard">
+    <span class="nav-icon">🏡</span>
+    <span class="nav-label">村長室</span>
+  </div>
+  <div class="nav-tab" data-page="quiz">
+    <span class="nav-icon">✏️</span>
+    <span class="nav-label">今日任務</span>
+  </div>
+  <div class="nav-tab" data-page="wrong">
+    <span class="nav-icon">📌</span>
+    <span class="nav-label">錯題牆</span>
+  </div>
+  <div class="nav-tab" data-page="search">
+    <span class="nav-icon">🔍</span>
+    <span class="nav-label">關鍵字</span>
+  </div>
+</nav>
+
+<!-- ===== DASHBOARD PAGE ===== -->
+<div id="page-dashboard" class="page active">
+
+  <!-- 村長報告牌 -->
+  <div class="board-sign">
+    <div class="board-pin">📌</div>
+    <div class="board-title">🦝 湯姆·奴克的複習報告</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-icon">✏️</span>
+      <span class="stat-num" id="stat-total">0</span>
+      <div class="stat-label">已作答題數</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">🎯</span>
+      <span class="stat-num" id="stat-accuracy">0%</span>
+      <div class="stat-label">整體正確率</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">📌</span>
+      <span class="stat-num" id="stat-wrong">0</span>
+      <div class="stat-label">待複習錯題</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">🔔</span>
+      <span class="stat-num" id="stat-best">0</span>
+      <div class="stat-label">鈴錢最高分</div>
+    </div>
+  </div>
+
+  <!-- 章節進度 -->
+  <div class="ac-card chapter-progress">
+    <div class="card-header-row">
+      <span class="card-header-icon">🌿</span>
+      <h3>各章節探索進度</h3>
+    </div>
+    <div id="chapter-rows"></div>
+  </div>
+
+  <!-- 操作按鈕 -->
+  <div class="action-btns">
+    <button class="btn btn-primary" id="btn-dash-start">
+      <span>🚀</span> 出發今日任務！
+    </button>
+    <button class="btn btn-wood btn-sm" id="btn-reset">
+      <span>🔄</span> 重置紀錄
+    </button>
+  </div>
+
+  <!-- 底部裝飾 -->
+  <div class="deco-row">
+    <span>🌳</span><span>🌸</span><span>🌻</span><span>🍄</span><span>🌼</span><span>🌳</span>
+  </div>
+</div>
+
+<!-- ===== QUIZ PAGE ===== -->
+<div id="page-quiz" class="page">
+
+  <!-- 任務設定板 -->
+  <div class="ac-card quiz-controls">
+    <div class="card-header-row">
+      <span class="card-header-icon">📋</span>
+      <label style="font-weight:800;font-size:0.95rem;">選擇章節任務</label>
+    </div>
+    <div class="chapter-chips" id="chapter-chips"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;width:100%;margin-top:4px">
+      <button class="btn btn-primary" id="btn-start-all">🎮 全部題目出發！</button>
+      <button class="btn btn-coral" id="btn-start-wrong">🔁 只練錯題</button>
+    </div>
+  </div>
+
+  <!-- Quiz Area -->
+  <div id="quiz-area">
+    <!-- Meta bar -->
+    <div class="quiz-meta">
+      <div class="meta-pill" id="quiz-progress">1 / 55</div>
+      <div class="combo-badge" id="combo-badge">🔥 連對 2 題</div>
+      <div class="bells-display" id="score-display">🔔 0</div>
+    </div>
+
+    <!-- 對話框式題目卡 -->
+    <div class="question-card">
+      <div class="dialog-character">
+        <span class="character-bubble">🦉</span>
+        <span class="character-name">布雷瑟博士說：</span>
+      </div>
+      <div class="question-tag-row">
+        <div class="question-tag" id="question-tag">Ch1</div>
+      </div>
+      <div class="question-text" id="question-text"></div>
+      <div class="options-list" id="options-list"></div>
+      <div class="explanation-box" id="explanation-box">
+        <div class="explanation-header">
+          <span>🦉</span> <strong>布雷瑟博士解說：</strong>
+        </div>
+        <span id="explanation-text"></span>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="quiz-nav">
+      <button class="btn btn-wood btn-sm" id="btn-skip">跳過 →</button>
+      <button class="btn btn-wood btn-sm" id="btn-end">結束</button>
+      <button class="btn btn-primary" id="btn-next" style="display:none">下一題 ▶</button>
+    </div>
+  </div>
+
+  <!-- Result Screen -->
+  <div class="result-screen" id="result-screen">
+    <div class="result-fireworks">🎆</div>
+    <div class="result-emoji" id="result-emoji">🎉</div>
+    <div class="result-title" id="result-msg">任務完成！</div>
+    <div class="result-bells">
+      <span>🔔</span>
+      <span id="result-score-num">0</span>
+      <span class="bells-label"> 鈴錢</span>
+    </div>
+    <div class="result-stats">
+      <div class="result-stat">
+        <div class="result-stat-icon">✅</div>
+        <div class="result-stat-num" id="result-correct">0</div>
+        <div class="result-stat-label">答對</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-icon">❌</div>
+        <div class="result-stat-num wrong-color" id="result-wrong">0</div>
+        <div class="result-stat-label">答錯</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-icon">🔥</div>
+        <div class="result-stat-num combo-color" id="result-combo">0</div>
+        <div class="result-stat-label">最高連對</div>
+      </div>
+      <div class="result-stat">
+        <div class="result-stat-icon">🎯</div>
+        <div class="result-stat-num" id="result-acc">0%</div>
+        <div class="result-stat-label">正確率</div>
+      </div>
+    </div>
+    <div class="action-btns" style="justify-content:center;margin-top:20px">
+      <button class="btn btn-primary" id="btn-restart">🔄 再挑戰一次</button>
+      <button class="btn btn-wood" id="btn-go-dash">🏡 回村長室</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WRONG QUESTIONS PAGE ===== -->
+<div id="page-wrong" class="page">
+
+  <div class="board-sign">
+    <div class="board-pin">📌</div>
+    <div class="board-title">📌 錯題公告欄</div>
+  </div>
+
+  <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+    <button class="btn btn-wood btn-sm" id="btn-clear-wrong">🗑️ 清除錯題</button>
+  </div>
+  <div class="wrong-list" id="wrong-list"></div>
+</div>
+
+<!-- ===== SEARCH PAGE ===== -->
+<div id="page-search" class="page">
+
+  <div class="board-sign">
+    <div class="board-pin">📌</div>
+    <div class="board-title">🔍 關鍵字查題</div>
+  </div>
+
+  <div class="ac-card search-card">
+    <div class="card-header-row">
+      <span class="card-header-icon">🦝</span>
+      <label style="font-weight:800;font-size:0.95rem;">輸入關鍵字搜尋題目</label>
+    </div>
+    <div class="search-input-wrap">
+      <span class="search-icon-prefix">🔍</span>
+      <input type="text" id="search-input" class="search-input" placeholder="例：ABCD、布魯姆、形成性評量…" autocomplete="off">
+      <button class="search-clear-btn" id="search-clear" aria-label="清除">✕</button>
+    </div>
+    <div class="search-hint" id="search-hint">輸入關鍵字後，相關題目與解答會顯示在下方 🌿</div>
+  </div>
+
+  <div id="search-results"></div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="data/questions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
